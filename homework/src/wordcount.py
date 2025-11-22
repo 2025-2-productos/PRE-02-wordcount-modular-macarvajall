@@ -1,6 +1,9 @@
 # obtain a list of files in the input directory
 
+from homework.src._internals.count_words import count_words
+from homework.src._internals.preprocess_lines import preprocess_lines
 from homework.src._internals.read_all_lines import read_all_lines
+from homework.src._internals.split_into_words import split_into_words
 
 from ._internals.write_count_words import write_count_words
 
@@ -10,17 +13,13 @@ def main():
     all_lines = read_all_lines()
 
     ### preprocess lines
-    all_lines = [line.strip().lower() for line in all_lines]
+    all_lines = preprocess_lines(all_lines)
 
     ### split in words
-    words = []
-    for line in all_lines:
-        words.extend(words.strip(",.!?") for words in line.split())
+    words = split_into_words(all_lines)
 
     ### count words
-    counter = {}
-    for word in words:
-        counter[word] = counter.get(word, 0) + 1
+    counter = count_words(words)
 
     # count the frequency of the words in the files in the input directory
     # counter = {}
